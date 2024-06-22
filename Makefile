@@ -46,7 +46,7 @@ deps.linux.amd64: duckdb
 	if [ "$(shell uname -s | tr '[:upper:]' '[:lower:]')" != "linux" ]; then echo "Error: must run build on linux"; false; fi
 
 	cd duckdb && \
-	CC="zig cc" CXX="zig c++" CFLAGS="-O3" CXXFLAGS="-O3" ${DUCKDB_COMMON_BUILD_FLAGS} make bundle-library -j 2
+	CC="zig cc" CXX="zig c++" CFLAGS="-target x86_64-linux-gnu -O3" CXXFLAGS="-target x86_64-linux-gnu -O3" ${DUCKDB_COMMON_BUILD_FLAGS} make bundle-library -j 2
 	cp duckdb/build/release/libduckdb_bundle.a deps/linux_amd64/libduckdb.a
 
 .PHONY: deps.linux.arm64
@@ -54,7 +54,7 @@ deps.linux.arm64: duckdb
 	if [ "$(shell uname -s | tr '[:upper:]' '[:lower:]')" != "linux" ]; then echo "Error: must run build on linux"; false; fi
 
 	cd duckdb && \
-	CC="zig cc" CXX="zig c++" CC="aarch64-linux-gnu-gcc" CXX="aarch64-linux-gnu-g++" CFLAGS="-O3" CXXFLAGS="-O3" ${DUCKDB_COMMON_BUILD_FLAGS} make bundle-library -j 2
+	CC="zig cc" CXX="zig c++" CFLAGS="-target aarch64-linux-gnu -O3" CXXFLAGS="-target aarch64-linux-gnu -O3" ${DUCKDB_COMMON_BUILD_FLAGS} make bundle-library -j 2
 	cp duckdb/build/release/libduckdb_bundle.a deps/linux_arm64/libduckdb.a
 
 .PHONY: deps.freebsd.amd64
